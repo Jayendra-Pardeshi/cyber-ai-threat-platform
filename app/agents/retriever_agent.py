@@ -1,11 +1,9 @@
 from app.rag.retriever import retrieve_context
 
-def retrieval_agent(query):
 
+def retrieval_agent(query: str):
     docs = retrieve_context(query)
 
-    context = "\n".join(
-        [doc.page_content for doc in docs]
-    )
+    context = "\n".join([doc.page_content for doc in docs])
 
     return context

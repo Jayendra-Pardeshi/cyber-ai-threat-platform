@@ -1,18 +1,11 @@
-from langchain.document_loaders import PyPDFLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from app.rag.vector_store import vector_db
+from rag.chunking import chunk_text
+from rag.embeddings import get_embedding
+from rag.vector_store import add_embedding
 
-def ingest_pdf(file_path):
+def ingest_document(text):
 
-    loader = PyPDFLoader(file_path)
+    chunks = chunk_text(text)
 
-    docs = loader.load()
-
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size=500,
-        chunk_overlap=100
-    )
-
-    chunks = splitter.split_documents(docs)
-
-    vector_db.add_documents(chunks)
+    for chunk in chunks:
+        embedding = get_embedding(chunk)
+        add_embedding(embedding, chunk)

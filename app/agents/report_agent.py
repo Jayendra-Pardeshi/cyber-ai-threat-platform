@@ -1,13 +1,13 @@
 from app.services.llm_service import llm
 
-def generate_report(data):
 
-    prompt = f'''
-    Generate professional incident report.
+def generate_report(analysis: str):
+    prompt = f"""
+    Generate professional cybersecurity incident report.
 
-    Data:
-    {data}
-    '''
+    Analysis:
+    {analysis}
+    """
 
     response = llm.invoke(prompt)
 

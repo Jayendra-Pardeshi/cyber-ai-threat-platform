@@ -1,7 +1,8 @@
-from app.rag.vector_store import vector_db
+from rag.embeddings import get_embedding
+from rag.vector_store import search
 
 def retrieve_context(query):
 
-    docs = vector_db.similarity_search(query, k=5)
+    embedding = get_embedding(query)
 
-    return docs
+    return search(embedding)

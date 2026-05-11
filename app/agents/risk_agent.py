@@ -1,18 +1,18 @@
 from app.services.llm_service import llm
 
-def risk_analysis(context):
 
-    prompt = f'''
-    Analyze cybersecurity severity.
+def risk_analysis(threat_context: str):
+    prompt = f"""
+    Analyze cybersecurity risk.
 
     Context:
-    {context}
+    {threat_context}
 
     Return:
-    - severity
-    - risk level
-    - remediation
-    '''
+    - Severity
+    - Attack Type
+    - Recommendations
+    """
 
     response = llm.invoke(prompt)
 

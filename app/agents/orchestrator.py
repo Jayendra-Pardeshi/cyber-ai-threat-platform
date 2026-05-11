@@ -1,22 +1,21 @@
-from app.agents.collector_agent import collect_threats
-from app.agents.retriever_agent import retrieval_agent
-from app.agents.risk_agent import risk_analysis
-from app.agents.report_agent import generate_report
+from agents.planner_agent import planner_agent
+from rag.retriever import retrieve_context
+from services.llm_service import generate_response
 
-def run_pipeline(query):
+def run_orchestrator(query):
 
-    threat = collect_threats(query)
+    plan = planner_agent(query)
 
-    rag_context = retrieval_agent(threat)
+    context = retrieve_context(query)
 
-    combined = threat + "\n" + rag_context
+    final_prompt = f"""
+    Security Plan:
+    {plan}
 
-    risk = risk_analysis(combined)
+    Retrieved Context:
+    {context}
 
-    report = generate_report(risk)
+    Generate final cybersecurity intelligence report.
+    """
 
-    return {
-        "threat": threat,
-        "risk": risk,
-        "report": report
-    }
+    return generate_response(final_prompt)

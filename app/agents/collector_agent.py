@@ -1,18 +1,14 @@
 from app.services.llm_service import llm
 
-def collect_threats(logs):
 
-    prompt = f'''
-    Analyze cybersecurity logs.
-
-    Detect:
-    - suspicious activity
-    - attack type
-    - malicious indicators
+def collect_threats(log_data: str):
+    prompt = f"""
+    Analyze the following security logs.
+    Detect suspicious activities.
 
     Logs:
-    {logs}
-    '''
+    {log_data}
+    """
 
     response = llm.invoke(prompt)
 
